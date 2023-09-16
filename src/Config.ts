@@ -17,7 +17,7 @@ export function loadConfig(
 
   const returnConfig: SimpleObject = {}
 
-  for (const key in Object.keys(keys)) {
+  for (const key of Object.keys(keys)) {
     const envVar = process.env[keys[key]]
 
     // I use the non-null assertion operator (!) here because we've already validated the config.
@@ -30,7 +30,7 @@ export function loadConfig(
 export function validateConfig(keys: SimpleObject): boolean {
   let valid = true
 
-  for (const keyName in Object.keys(keys)) {
+  for (const keyName of Object.keys(keys)) {
     if (!process.env[keys[keyName]]) {
       logger.error({
         message: `Required environment variable ${keyName} with name ${keys[keyName]} not found!`,
