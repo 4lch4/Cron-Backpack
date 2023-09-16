@@ -1,7 +1,7 @@
 {
   "name": "@4lch4/cron-backpack",
   "displayName": "Cron Backpack",
-  "version": "0.0.1-1",
+  "version": "0.0.1-2",
   "description": "A small library that provides functions/tools for all of my NodeJS batch jobs.",
   "main": "./dist/index.js",
   "exports": "./dist/index.js",
