@@ -1,10 +1,5 @@
+import PQueue from 'p-queue'
 import { logger } from './index.js'
-
-export interface FinishParams {
-  message?: string
-  exitCode?: number
-  start?: Date
-}
 
 export class Processor {
   private static start = new Date()
@@ -32,6 +27,24 @@ export class Processor {
 
     process.exit(0)
   }
+
+  static async finishQueue(queue: PQueue) {
+    queue.on('empty', () => {
+      if (queue.size === 0) this.finishJob()
+    })
+  }
+
+  static async failJob(error: string | Error, exitCode: number = 1) {
+    let message = '❌ '
+
+    if (typeof error === 'string') {
+      message += `The job has failed with the following message: ${error}`
+    } else {
+      message += `The job has failed with the following error message: ${error.message}`
+    }
+
+    logger.log('error', { message, functionName: 'Processor#failJob', error })
+
     process.exit(exitCode)
   }
 }
